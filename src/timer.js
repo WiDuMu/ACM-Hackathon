@@ -4,13 +4,14 @@ const css = `
    min-height: 3rem;
    min-width: 3rem;
    border: 1px rgba(66, 76, 85,. 85) solid;
-   background: rgba(66, 76, 85,.85);
+   background: white;
    border-radius: 1em;
    margin: 1em;
    padding: 1em;
    display: grid;
    grid-template-columns: 1fr;
    align-items: center;
+   color: black;
    justify-items: center;
   }
   
@@ -52,15 +53,11 @@ const css = `
             linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
             linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
   }
-  .delete-button {
-      position: absolute;
-      top: -40%;
-      left: 50%;
-  }
 `;
 const html = `
 <style>${css}</style>
 <div class="card">
+<time-input></time-input>
 <h1>loading...</h1>
 <button type="button">></button>
 <div class="timer-bar">
