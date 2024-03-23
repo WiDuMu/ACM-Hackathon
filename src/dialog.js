@@ -24,7 +24,7 @@ const html = `
    </div>
 </dialog>
 `;
-class CookieDialog extends HTMLElement {
+export default class CookieDialog extends HTMLElement {
    shadow;
    constructor() {
       super();
@@ -36,8 +36,8 @@ class CookieDialog extends HTMLElement {
       const dialog = this.shadow.querySelector("dialog");
       const accept = this.shadow.getElementById("accept");
       const reject = this.shadow.getElementById("reject");
-      accept.addEventListener("click", (() => { dialog.close() }));
-      reject.addEventListener("click", (() => { dialog.close() }));
+      accept.addEventListener("click", (() => { dialog.close(); }));
+      reject.addEventListener("click", (() => { dialog.close(); }));
    }
 }
 

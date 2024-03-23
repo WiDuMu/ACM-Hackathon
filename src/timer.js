@@ -39,17 +39,53 @@ const css = `
    font-size: 1em;
 
   } 
+  .timer-bar {
+      display: inline-flex;
+      flex-direction: row;
+      gap: 1em;
+      -webkit-appearance: none;
+      
+      
+  }
+  .timer-bar > progress {
+      
+      /* */box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset; /* */
+      /**/ background: linear-gradient(#e66465, #9198e5); /**/ 
+      background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
+            linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
+            linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+  }
+  .timer-bar > .pill {
+      position: relative;
+      background-color: green;
+      width: 1em;
+      min-height: 100%;
+      border-radius: 50%;
+      left: 50px;
+  }
+  .delete-button {
+   
+      position: absolute;
+      top: -40%;
+      left: 50%;
+  }
 `;
 const html = `
+
 <style>${css}</style>
 <div class="timer">
 <div class="card">
 <h1>loading...</h1>
 <input class="time-input" type="time">
 <button type="button">></button>
-<progress value="50" max="100">
-</progress>
-</d>
+
+<div class="timer-bar">
+   <label for="time">2:20</label>
+   <div class="pill"></div>
+   <progress name="time" class="timer-progress" value="50" max="100"></progress>
+   <label for="time">2:20</label>
+</div>
+
 </div>`;
 
 export default class Timer extends HTMLElement {

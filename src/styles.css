@@ -1,3 +1,5 @@
+
+
 html, body {
  margin: 0px;
  --foreground: #deadbeef;
@@ -12,11 +14,11 @@ button {
    box-shadow: none;
 }
 nav {
- background: grey;
- display: flex;
- align-items: space-between;
- justify-content: space-between;
- padding-left: 1rem;
- padding-right: 1rem;
+   background: grey;
+   display: flex;
+   align-items: space-between;
+   justify-content: space-between;
+   padding-left: 1rem;
+   padding-right: 1rem;
 }
 
