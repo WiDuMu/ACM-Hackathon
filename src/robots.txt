@@ -1,0 +1,4 @@
+# don't quite know what kind of robots we should ward off, so perhaps warding them all off shall do. 
+
+User-agent: *
+User-agent: * Disallow: /

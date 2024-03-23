@@ -32,13 +32,20 @@ const css = `
   .card > button:hover {
      cursor: pointer;
   }
-`
+
+  .card > .time-input {
+   appearance: none;
+   border: none;
+   font-size: 1em;
+
+  } 
+`;
 const html = `
 <style>${css}</style>
 <div class="timer">
 <div class="card">
-<h1>4:28pm</h1>
-<input type="time">
+<h1>loading...</h1>
+<input class="time-input" type="time">
 <button type="button">></button>
 <progress value="50" max="100">
 </progress>
@@ -56,6 +63,7 @@ export default class Timer extends HTMLElement {
    internal_time;
    timeElement;
    interval;
+   timeInput;
 
    constructor() {
       super();
@@ -67,9 +75,11 @@ export default class Timer extends HTMLElement {
       this.button = this.shadow.querySelector(".card > button");
       this.timeElement = this.shadow.querySelector(".card > h1");
       this.progress = this.shadow.querySelector(".card > progress");
-      this.interval = setInterval( (() => {this.time = new Date()}).bind(this), 1000 );
+      this.timeInput = this.shadow.querySelector(".card > .time-input");
+      this.timeInput.value = "00:00"
+      this.interval = setInterval((() => { this.time = new Date() }).bind(this), 1000);
    }
-   
+
    set time(current) {
       this.internal_time = current;
       this.timeElement.textContent = current.toLocaleTimeString();
