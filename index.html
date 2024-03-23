@@ -6,20 +6,21 @@
    <title>Document</title>
    <link rel="stylesheet" href="./styles.css">
    <script type="module" src="./script.js"></script>
+   <script type="module" src="./cookiebaker.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/14.0.0/material-components-web.min.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/14.0.0/material-components-web.css">
 </head>
 
 <body>
    <nav><p>timer</p> <p> menu </p></nav>
-   <div class="timer">
-     <div class="card">
-     <h1>4:28pm</h1>
-     <h2>hi<h2>
-     <button type="button">></button>
-     <progress value="50" max="100">
-     </progress>
-     </d>
-   </div>
    <custom-timer></custom-timer>
+   <custom-timer></custom-timer>
+   <custom-timer></custom-timer>
+   <custom-timer></custom-timer>
+   <custom-timer></custom-timer>
+   <md-fab aria-label="Edit">
+      <md-icon slot="icon">edit</md-icon>
+   </md-fab>
  </body>
 
 </html>

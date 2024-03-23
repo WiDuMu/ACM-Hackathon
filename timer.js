@@ -1,14 +1,4 @@
 //import {LitElement, html} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js'
-
-const html = `<div class="timer">
-<div class="card">
-<h1>4:28pm</h1>
-<h2>hi<h2>
-<button type="button">></button>
-<progress value="50" max="100">
-</progress>
-</d>
-</div>`;
 const css = `
 .timer {
    display: flex;
@@ -29,6 +19,7 @@ const css = `
   }
   
   .card > button {
+   border: none;
    aspect-ratio: 1;
    border-radius: 100%;
    height: 3rem;
@@ -42,6 +33,17 @@ const css = `
      cursor: pointer;
   }
 `
+const html = `
+<style>${css}</style>
+<div class="timer">
+<div class="card">
+<h1>4:28pm</h1>
+<button type="button">></button>
+<progress value="50" max="100">
+</progress>
+</d>
+</div>`;
+
 export default class Timer extends HTMLElement {
    startTime;
    endTime;
@@ -50,7 +52,9 @@ export default class Timer extends HTMLElement {
    shadow;
    progress;
    button;
-   time;
+   internal_time;
+   timeElement;
+   interval;
 
    constructor() {
       super();
@@ -60,9 +64,14 @@ export default class Timer extends HTMLElement {
    connectedCallback() {
       this.shadow.innerHTML = html;
       this.button = this.shadow.querySelector(".card > button");
-      this.time = this.shadow.querySelector(".card > h1");
+      this.timeElement = this.shadow.querySelector(".card > h1");
       this.progress = this.shadow.querySelector(".card > progress");
-
+      this.interval = setInterval( (() => {this.time = new Date()}).bind(this), 1000 );
+   }
+   
+   set time(current) {
+      this.internal_time = current;
+      this.timeElement.textContent = current.toLocaleTimeString();
    }
 }
 customElements.define("custom-timer", Timer);
