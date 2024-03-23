@@ -38,6 +38,7 @@ const html = `
 <div class="timer">
 <div class="card">
 <h1>4:28pm</h1>
+<input type="time">
 <button type="button">></button>
 <progress value="50" max="100">
 </progress>
