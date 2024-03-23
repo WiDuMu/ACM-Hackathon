@@ -1,51 +1,43 @@
-// import {LitElement, html} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
-
-// export class CookieDialog extends LitElement {
-//     static properties = {
-//    //   name: {},
-//    };
-//    // Define scoped styles right with your component, in plain CSS
-//    static styles = css`
-     
-//    `;
- 
-//    constructor() {
-//      super();
-//      // Declare reactive properties
-//    }
- 
-//    // Render the UI as a function of component state
-//    render() {
-//      return html`
-//      <dialog>
-//       <form method="dialog">
-//          <button>Ok</button>
-//       </form>
-//      </dialog>
-//      `;
-//    }
-//  }
 const css = `
+   dialog {
+      margin: 1rem;
+      border-radius: 1rem;
+      bodder: none;
+   }
 
+   #cookie-nav {
+      display: flex;
+      flex-direction: row;
+      justify-content: right;
+      gap: 1em;
+   }
 `
+
+//** HTML here */
 const html = `
 <style>${css}</style>
-<dialog open>
-   <p>Greetings, one and all!</p>
-   <form method="dialog">
-      <button>OK</button>
-   </form>
+<dialog id="cookie-pop-up" open>
+   <p>We use cookies to store your session. This site does not send your data to any external server. If you don't feel comfortable accepting cookies, you may reject them, but the site will function in a degraded state.</p>
+   <div id="cookie-nav">
+      <button id="accept" type="button">Accept</button>
+      <button id="reject" type="button">Reject</button>
+   </div>
 </dialog>
 `;
 class CookieDialog extends HTMLElement {
    shadow;
    constructor() {
       super();
-      this.shadow = this.attachShadow( { mode: "open" } );
+      this.shadow = this.attachShadow( { mode: "open" } );     
    }
 
    connectedCallback() {
       this.shadow.innerHTML = html;
+      const dialog = this.shadow.querySelector("dialog");
+      const accept = this.shadow.getElementById("accept");
+      const reject = this.shadow.getElementById("reject");
+      accept.addEventListener("click", (() => { dialog.close() }));
+      reject.addEventListener("click", (() => { dialog.close() }));
    }
 }
 
