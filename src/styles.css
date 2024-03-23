@@ -6,6 +6,22 @@ html, body {
  --text: #242092;
  --background: #454545;
  --accent: #b00b5b;
+ background-image: url("./static/cool_tile_type_thing.webp");
+ background-size: .75rem;
+ animation: shifting 500s linear infinite;
+}
+@keyframes shifting {
+   0% {
+      background-position: 0%;
+   }
+
+   50% {
+      background-position: 100%;
+   }
+
+   100% {
+      background-position: 0%;
+   }
 }
 button {
    background: none;

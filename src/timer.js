@@ -7,8 +7,8 @@ const css = `
    text-transform: bold;
   }
   .card {
-   border: 1px rgba(66, 76, 85,.66) solid;
-   background: rgba(66, 76, 85,.66);
+   border: 1px rgba(66, 76, 85,. 85) solid;
+   background: rgba(66, 76, 85,.85);
    border-radius: 1em;
    margin: 1em;
    padding: 1em;
@@ -44,8 +44,9 @@ const css = `
       flex-direction: row;
       gap: 1em;
       -webkit-appearance: none;
-      
-      
+  }
+  .timer-bar > * {
+
   }
   .timer-bar > progress {
       
@@ -55,16 +56,7 @@ const css = `
             linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
             linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
   }
-  .timer-bar > .pill {
-      position: relative;
-      background-color: green;
-      width: 1em;
-      min-height: 100%;
-      border-radius: 50%;
-      left: 50px;
-  }
   .delete-button {
-   
       position: absolute;
       top: -40%;
       left: 50%;
@@ -81,7 +73,6 @@ const html = `
 
 <div class="timer-bar">
    <label for="time">2:20</label>
-   <div class="pill"></div>
    <progress name="time" class="timer-progress" value="50" max="100"></progress>
    <label for="time">2:20</label>
 </div>
