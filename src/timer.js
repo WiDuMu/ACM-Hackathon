@@ -1,12 +1,8 @@
-//import {LitElement, html} from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js'
+import timeInput from "./timeInput.js";
 const css = `
-.timer {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   text-transform: bold;
-  }
   .card {
+   min-height: 3rem;
+   min-width: 3rem;
    border: 1px rgba(66, 76, 85,. 85) solid;
    background: rgba(66, 76, 85,.85);
    border-radius: 1em;
@@ -45,8 +41,8 @@ const css = `
       gap: 1em;
       -webkit-appearance: none;
   }
-  .timer-bar > * {
-
+  .card > * {
+      margin-bottom: .5em;
   }
   .timer-bar > progress {
       
@@ -63,21 +59,16 @@ const css = `
   }
 `;
 const html = `
-
 <style>${css}</style>
-<div class="timer">
 <div class="card">
 <h1>loading...</h1>
-<input class="time-input" type="time">
 <button type="button">></button>
-
 <div class="timer-bar">
    <label for="time">2:20</label>
    <progress name="time" class="timer-progress" value="50" max="100"></progress>
    <label for="time">2:20</label>
 </div>
-
-</div>`;
+`;
 
 export default class Timer extends HTMLElement {
    startTime;
@@ -102,8 +93,8 @@ export default class Timer extends HTMLElement {
       this.button = this.shadow.querySelector(".card > button");
       this.timeElement = this.shadow.querySelector(".card > h1");
       this.progress = this.shadow.querySelector(".card > progress");
-      this.timeInput = this.shadow.querySelector(".card > .time-input");
-      this.timeInput.value = "00:00"
+      //this.timeInput = this.shadow.querySelector(".card > .time-input");
+      //this.timeInput.value = "00:00"
       this.interval = setInterval((() => { this.time = new Date() }).bind(this), 1000);
    }
 

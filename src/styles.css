@@ -38,3 +38,8 @@ nav {
    padding-right: 1rem;
 }
 
+main {
+   display: grid;
+   justify-items: center;
+}
+

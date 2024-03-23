@@ -3,11 +3,13 @@ import CookieDialog from "./dialog.js";
 // javascript file which bakes a cookie for user, along with starts the intro message if a cookie hasn't been detected yet
 
 let cookieInterval;
+const daysToLive = 1;
+const secondsToLive = daysToLive * 24 * 3600;
 
 function enableCookies() {
   clearInterval(cookieInterval);
   cookieInterval = setInterval(() => {
-    document.cookie = "; SameSite=strict; max-age=1;"
+    document.cookie = `; SameSite=strict; max-age=${secondsToLive};`
   }, 30000);
 }
 
