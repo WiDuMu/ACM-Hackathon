@@ -29,7 +29,18 @@ const css = `
      cursor: pointer;
   }
 
+  .card > input[name="activity-name"] {
+     appearance: none;
+     background: rgba(127,127,127,.25);
+     border-radius: .25em;
+     padding: .5em;
+     border: 1px transparent solid;
+  }
 
+  .card > input[name="activity-name"]:focus {
+     outline: none;
+     border: 1px rgba(127,127,127,.75) solid;
+  }
 
   .timer-bar {
       display: inline-flex;
