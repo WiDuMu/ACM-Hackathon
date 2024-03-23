@@ -1,4 +1,5 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 html, body {
  margin: 0px;
@@ -9,6 +10,8 @@ html, body {
  background-image: url("./static/cool_tile_type_thing.webp");
  background-size: .75rem;
  animation: shifting 500s linear infinite;
+ font-family: "Roboto", sans-serif;
+ /* font-weight: 300; */
 }
 @keyframes shifting {
    0% {

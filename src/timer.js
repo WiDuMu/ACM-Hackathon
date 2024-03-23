@@ -1,4 +1,3 @@
-import timeInput from "./timeInput.js";
 const css = `
   .card {
    min-height: 3rem;
@@ -23,25 +22,22 @@ const css = `
    background: rgb(61, 44, 46);
    font-size: 1.5rem;
    color: white;
-   font-weight: bold;
+   font-weight: 200;
   }
   
   .card > button:hover {
      cursor: pointer;
   }
 
-  .card > .time-input {
-   appearance: none;
-   border: none;
-   font-size: 1em;
 
-  } 
+
   .timer-bar {
       display: inline-flex;
       flex-direction: row;
       gap: 1em;
       -webkit-appearance: none;
   }
+
   .card > * {
       margin-bottom: .5em;
   }
@@ -55,9 +51,11 @@ const css = `
   }
 `;
 const html = `
+
 <style>${css}</style>
 <div class="card">
-<time-input></time-input>
+<label for="activity-name">Name:</label>
+<input name="activity-name" type="text">
 <h1>loading...</h1>
 <button type="button">></button>
 <div class="timer-bar">
@@ -90,8 +88,7 @@ export default class Timer extends HTMLElement {
       this.button = this.shadow.querySelector(".card > button");
       this.timeElement = this.shadow.querySelector(".card > h1");
       this.progress = this.shadow.querySelector(".card > progress");
-      //this.timeInput = this.shadow.querySelector(".card > .time-input");
-      //this.timeInput.value = "00:00"
+      this.timeInput = this.shadow.querySelector("time-input");
       this.interval = setInterval((() => { this.time = new Date() }).bind(this), 1000);
    }
 

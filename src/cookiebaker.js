@@ -9,7 +9,7 @@ const secondsToLive = daysToLive * 24 * 3600;
 function enableCookies() {
   clearInterval(cookieInterval);
   cookieInterval = setInterval(() => {
-    document.cookie = `; SameSite=strict; max-age=${secondsToLive};`
+    document.cookie = `k; SameSite=strict; max-age=${secondsToLive};`
   }, 30000);
 }
 
