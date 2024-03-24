@@ -55,26 +55,26 @@ const css = `
    min-width: fit-content;
    min-height: fit-content;
    cursor: pointer;
-   padding: 0.25rem;
+   padding: 0.5rem;
   }
   button:hover {
    background-color: var(--accent-hover);
   }
-  button > .trash {
+  .trash {
    background-image: url('./static/trash-solid.svg');
    background-position: center;
    background-repeat: no-repeat;
    background-size: 1.5em;
-   min-width: 2.5em;
-   min-height: 2.5em;
+   min-width: 3em;
+   min-height: 3em;
 }
-  button > .play {
+  .play {
    background-image: url('./static/play-solid.svg');
    background-position: center;
    background-repeat: no-repeat;
    background-size: 1.5em;
-   min-width: 2.5em;
-   min-height: 2.5em;
+   min-width: 3em;
+   min-height: 3em;
 }
 .buttons {
    width: 100%;
@@ -106,8 +106,8 @@ const html = `
 00:00
 </span>
 <div class="buttons">
-<button type="button" ><div class="play"></div></button>
-<button type="button"><div class="trash"></div></button>
+<button type="button" class="play"></button>
+<button type="button" class="trash"></button>
 </div>
 
 `;
@@ -151,14 +151,14 @@ export default class Timer extends HTMLElement {
       this.shadow.innerHTML = html;
       this.timeElement = this.shadow.querySelector(".card > h1");
       this.timeElement.textContent = Timer.formatTime(this.accumulatedTime);
-      this.startButton = this.shadow.querySelector(".play").parentNode;
+      this.startButton = this.shadow.querySelector(".play");
       this.nameInput = this.shadow.querySelector(`.card > input[name="activity-name"]`);
       this.startEndTimeSpan = this.shadow.querySelector('.start-end-time');
       this.nameInput.value = this.name;
       this.startButton.addEventListener("click", (event => {
          console.log(event);
          console.log(event.target, this.startButton, event.target == this.startButton);
-         if (event.target == this.startButton || event.target == this.startButton.childNodes[0]) {
+         if (event.target == this.startButton || event.target == this) {
             console.log("Starting timer");
             this.toggleTimer();
          } else {

@@ -4,12 +4,17 @@ import Timer from "./timer.js";
 
 let breakInterval = 1800000;
 let unit = 60;
+let breakLength = 20;
+let breakLengthMilliseconds = breakLength * unit * 1000;
+let breakTime = 0;
+let breakTimeInterval = 0;
 
 const intervalInput = document.querySelector(`input[name="break-interval"]`);
 intervalInput.value = 30;
 const unitInput = document.querySelector(`input[value="minutes"]`);
 const unitInput2 = document.querySelector(`input[value="hours"]`);
 const progressBar = document.getElementById("progress");
+const finalTimer = document.querySelector(".final-time");
 unitInput.checked = true;
 changeUnit();
 const addButton = document.getElementById("plus");
@@ -65,13 +70,18 @@ unitInput2.addEventListener("input", changeUnit);
 // how long has the person been working
 // throw a break trigger if is 
 function checkTime() {
-   const timespent = Date.now() - Timer.firstStartTime;
+   const now = Date.now();
+   const timespent = now - Timer.firstStartTime;
    // console.log(timespent, breakInterval, Date.now());
    if (Timer.running > 0) {
+      if (breakInterval > 0) {
+         progressBar.value = timespent / breakInterval * 100;
+      } else {
+         progressBar.value = 0;
+      }
       
-      progressBar.value = timespent / breakInterval * 100;
       if (timespent > breakInterval) {
-         
+         breakTime = now;
          touchGrass();
       }
    }
@@ -85,6 +95,16 @@ function killAllTimers() {
    })
 }
 
+function updateOvertime() {
+   const timespent = Date.now() - Timer.firstStartTime;
+   finalTimer.textContent = Timer.formatTime(timespent);
+}
+
+function updateBreakTime() {
+   const timeLeft = (breakTime + breakLengthMilliseconds) - Date.now();
+   finalTimer.textContent = Timer.formatTime(timeLeft);
+}
+
 function touchGrass() {
    const grassDialog = document.querySelector("#go-touch-grass");
    const quote = document.querySelector("#go-touch-grass > div > h1 > q");
@@ -92,7 +112,12 @@ function touchGrass() {
    quote.textContent = getRandomPhrase();
    grassDialog.showModal();
    const acceptGrassButton = grassDialog.querySelector("#accept-break");
-   acceptGrassButton.addEventListener("click", () => {killAllTimers();});
+   const finalInterval = setInterval(updateOvertime, 500);
+   acceptGrassButton.addEventListener("click", () => {
+      clearInterval(finalInterval);
+      breakTimeInterval = setInterval(updateBreakTime);
+      killAllTimers();
+   });
 }
 
 // return a random string from the array with random quotes

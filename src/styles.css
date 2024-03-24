@@ -160,8 +160,8 @@ header > progress {
 #go-touch-grass > div {
    background: var(--background);
    color: var(--text);
-   height: 50%;
-   width: 50%;
+   min-height: 50%;
+   min-width: 50%;
    padding: 1rem;
    border-radius: 0.25em;
    display: grid;
@@ -185,10 +185,23 @@ header > progress {
    content: "“";
 }
 
+#go-touch-grass > div > h1 {
+   text-align: center;
+}
+
 #go-touch-grass > div > h1 > q {
    font-family: "Noto Serif Display";
 }
 
 #go-touch-grass > div > q::after {
    content: "”";
+}
+
+.final-time {
+   font-family: "Kode Mono", "Roboto", sans-serif;
+   color: var(--accent);
+   font-size: 3.5rem;
+}
+.final-time::before {
+   content: '-';
 }
