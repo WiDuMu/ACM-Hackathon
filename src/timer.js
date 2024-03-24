@@ -14,18 +14,7 @@ const css = `
    justify-items: center;
   }
   
-  .card > button {
-   border: none;
-   aspect-ratio: 1;
-   border-radius: 100%;
-   height: 3rem;
-   background: rgb(61, 44, 46);
-   font-size: 1.5rem;
-   color: white;
-   font-weight: 200;
-  }
-  
-  .card > button:hover {
+  .card:hover {
      cursor: pointer;
   }
 
@@ -68,7 +57,6 @@ const html = `
 <label for="activity-name">Name:</label>
 <input name="activity-name" type="text">
 <h1>loading...</h1>
-<button type="button">></button>
 <div class="timer-bar">
    <label for="time">2:20</label>
    <progress name="time" class="timer-progress" value="50" max="100"></progress>
@@ -79,6 +67,7 @@ const html = `
 export default class Timer extends HTMLElement {
    startTime;
    endTime;
+   active;
    accumulatedTime;
    duration;
    shadow;
@@ -92,6 +81,7 @@ export default class Timer extends HTMLElement {
    constructor() {
       super();
       this.shadow = this.attachShadow({ mode: "open" });
+      this.startTime = Date.now();
    }
 
    connectedCallback() {
@@ -100,14 +90,42 @@ export default class Timer extends HTMLElement {
       this.timeElement = this.shadow.querySelector(".card > h1");
       this.progress = this.shadow.querySelector(".card > progress");
       this.timeInput = this.shadow.querySelector("time-input");
-      this.interval = setInterval((() => { this.time = new Date() }).bind(this), 1000);
+      //this.interval = setInterval((() => { this.time = new Date() }).bind(this), 1000);
+      this.shadow.querySelector(".card").addEventListener("click", this.toggleTimer.bind(this));
    }
 
-   set time(current) {
-      this.internal_time = current;
-      this.timeElement.textContent = current.toLocaleTimeString();
+   updateTime() {
+      this.timeElement.textContent = this.formatTime(Date.now() - this.startTime);
    }
+
+   toggleTimer() {
+      console.log("toggling timer, current"+this.active);
+      if (this.active) {
+         this.active = false;
+         this.endTime = Date.now();
+         clearInterval(this.interval);
+      } else {
+         this.startTime = Date.now();
+         this.active = true;
+         this.interval = setInterval(this.updateTime.bind(this), 1000);
+      }
+   }
+
+   formatTime(time) {
+      time = Math.round(time / 1000);
+      const seconds = Math.round(time % 60);
+      const minutes = Math.round((time / 60) % 60);
+      const hours = Math.round((time / 3600));
+      const days = Math.round((time / 86400));
+      let formatted = `${minutes.toString().padStart(2,"0")}:${seconds.toString().padStart(2,"0")}`;
+      if (hours > 0) {
+         formatted = hours.toString().padStart(2, "0") + ":" + formatted;
+      }
+      if (days > 0) {
+         formatted = days.toString().padStart(2, "0") + ":" + formatted;
+      }
+      return formatted;
+   }
+
 }
 customElements.define("custom-timer", Timer);
-
-//export {Timer};
