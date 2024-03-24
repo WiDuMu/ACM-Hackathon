@@ -2,6 +2,8 @@
 
 Contributors: Duncan Murphy and Jackson Dempsey
 
+Deployed to: [GitHub Pages](https://widumu.github.io/ACM-Hackathon/)
+
 TODO:
 
 * Make the accept button work

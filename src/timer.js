@@ -144,7 +144,10 @@ export default class Timer extends HTMLElement {
    }
 
    static fromObject(o) {
-      return new Timer( o.name, o.accumulatedTime);
+      let neu = new Timer( o.name, o.accumulatedTime);
+      neu.startTime = o.startTime;
+      neu.endTime = o.endTime;
+      return neu;
    }
 
    connectedCallback() {
