@@ -29,13 +29,17 @@
       </div>  
    </dialog>
    <header>
-      <img src="./static/logo 400 by 262.png" alt="Touch Grass Logo" width="400" height="262"> 
+      
       <nav>
+            <img src="./static/touch_grass_logo_SOLO_SHOULD_BE_OPTIMISED.svg" alt="Touch Grass Logo"> 
             <button type="button" id="plus" class="plus">+</button>
             <label for="break-interval">Break interval:</label>
-            <input name="break-interval" value="30" type="number">
-            <input name="units" type="radio" value="minutes" checked><label for="minutes">Minutes</label> 
-            <input name="units" type="radio" value="hours"><label for="hours">Hours</label>
+            <input name="break-interval" value="30" min="0" type="number">
+            <div id="unit-container">
+            <span><input name="units" type="radio" value="minutes" checked><label for="minutes">Minutes</label></span>
+            <span><input name="units" type="radio" value="hours"><label for="hours">Hours</label></span>
+            </div>
+            <label for="break-duration">Break duration:</label><input name="break-duration" type="number" value="20" min="0">
       </nav>
       <progress id="progress" value="0" max="100"></progress>
    </header>

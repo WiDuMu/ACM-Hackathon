@@ -20,13 +20,14 @@ changeUnit();
 const addButton = document.getElementById("plus");
 const grid = document.body.querySelector("main");
 const checkGrassInterval = setInterval(checkTime, 100);
+
 // array storing the memeable quotes
 const memeableTouchGrassQuotes = [
    
    "take a break. go touch some grass.",
-   "the grass is greener on the other side, not this side. go touch some grass.",
-   "grass doesn't hurt to touch, you know. go touch some grass.",
-   "i can assure you that grass will feel better than that keyboard you've been typing away at. go touch some grass.",
+   "the grass is greener on the other side, not this side. go on and touch some grass.",
+   "grass doesn't hurt to touch, you know. give it a try.",
+   "i can assure you that grass will feel better than that keyboard you've been typing away at. go touch some.",
    "toca un poquito de césped, por favor. (touch grass please.)",
    "literaly the only thing stopping you from touching grass is (mabye?) a lawnmower. go touch some already.",
    
