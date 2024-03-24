@@ -21,8 +21,8 @@ addButton.addEventListener("click", () => {
 
 function changeInterval() {
    const input = intervalInput.value;
-   const duration = parseInt(input, 10);
-   if ( !isNaN(duration) ) {
+   const duration = parseFloat(input);
+   if ( !isNaN(duration) && isFinite(duration) && duration >= 0 ) {
       console.log(duration);
       breakInterval = (duration * unit) * 1000;
    } else {
@@ -53,13 +53,29 @@ unitInput2.addEventListener("input", changeUnit);
 // how long has the person been working
 // throw a break trigger if is 
 function checkTime() {
+   const timespent2 = Date.now() - Timer.firstStartTime;
+   console.log(timespent2, breakInterval, Date.now());
    if (Timer.running > 0) {
       const timespent = Date.now() - Timer.firstStartTime;
       if (timespent > breakInterval) {
-         console.log("break time!");
+         
+         touchGrass();
       }
    }
-   let timeSinceLastBreak = 0;
+}
+
+function killAllTimers() {
+   const timers = document.querySelectorAll("custom-timer");
+   timers.forEach(timer => {
+      timer.turnOff();
+   })
+}
+
+function touchGrass() {
+   const grassDialog = document.querySelector("#go-touch-grass");
+   grassDialog.showModal();
+   const acceptGrassButton = grassDialog.querySelector("#accept-break");
+   acceptGrassButton.addEventListener("click", () => {killAllTimers();});
 }
 
 // Start checking the time running

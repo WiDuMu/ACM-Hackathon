@@ -122,7 +122,6 @@ export default class Timer extends HTMLElement {
       if (this.active) {
          Timer.running -= 1;
          this.active = false;
-         // this.endTime = Date.now();
          this.accumulatedTime += now - this.startTime;
          clearInterval(this.interval);
       } else {
@@ -148,10 +147,10 @@ export default class Timer extends HTMLElement {
 
    static formatTime(time) {
       time = time / 1000;
-      const seconds = Math.round(time % 60);
-      const minutes = Math.round((time / 60) % 60);
-      const hours = Math.round((time / 3600));
-      const days = Math.round((time / 86400));
+      const seconds = Math.floor(time % 60);
+      const minutes = Math.floor((time / 60) % 60);
+      const hours = Math.floor((time / 3600));
+      const days = Math.floor((time / 86400));
       let formatted = `${minutes.toString().padStart(2,"0")}:${seconds.toString().padStart(2,"0")}`;
       if (hours > 0) {
          formatted = hours.toString().padStart(2, "0") + ":" + formatted;

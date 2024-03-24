@@ -58,6 +58,7 @@ button {
 main {
    display: grid;
    justify-items: center;
+   grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
 }
 
 #cookie-pop-up {
