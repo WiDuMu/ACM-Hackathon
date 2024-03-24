@@ -45,7 +45,7 @@ function enableCookies() {
   clearInterval(cookieInterval);
   cookieInterval = setInterval(() => {
     document.cookie = `${getCookie()}; SameSite=strict; max-age=${secondsToLive};`
-  }, 1000);
+  }, 10000);
   console.log(cookieInterval);
 }
 

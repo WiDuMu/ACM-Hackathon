@@ -8,6 +8,7 @@ let breakLength = 20;
 let breakLengthMilliseconds = breakLength * unit * 1000;
 let breakTime = 0;
 let breakTimeInterval = 0;
+let boomInterval = 0;
 
 const intervalInput = document.querySelector(`input[name="break-interval"]`);
 const breakInput = document.querySelector(`input[name="break-duration"]`);
@@ -150,8 +151,11 @@ function touchGrass() {
       clearInterval(finalInterval);
       grassDialog.close();
       killAllTimers();
+      clearInterval(boomInterval);
       whileTouchingGrass();
    });
+   boomInterval = setInterval(notify, 10000);
+   notify();
 }
 
 function whileTouchingGrass() {
@@ -168,6 +172,14 @@ function whileTouchingGrass() {
 // return a random string from the array with random quotes
 function getRandomPhrase() { return memeableTouchGrassQuotes[ Math.floor(Math.random() * memeableTouchGrassQuotes.length) ]; };
 
+function notify() {
+   const sound = new Audio('./static/vineboom.webm');
+   sound.play();
+}
+
+function osNotification() {
+   
+}
 
 // Start checking the time running
 

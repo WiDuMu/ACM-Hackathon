@@ -13,15 +13,16 @@ TODO:
 
 * ~~make the trash can icon work able to delete timers~~
 
- * test timer integration with the break interval bar, to see if any don't react dynamically to the break interval bar --
+ * -- test timer integration with the break interval bar, to see if any don't react dynamically to the break interval bar --
 
- * fix the chrome / firefox progress bar  bug where on chrome there are two progress bars rendered, one for firefox, one for chrome
+ * -- fix the chrome / firefox progress bar  bug where on chrome there are two progress bars rendered, one for firefox, one for chrome --
 
 * *IF TIME PERMITS*
 
  * if time permits, fenangle the if statement which remembers the time at which you started the 
 
-  * have browser send browser notifcation like what happens when you hit the bell icon on YT
+  * --  have browser send browser notifcation like what happens when you hit the bell icon on YT --
+   * we made a sound so that works
 
 
  
