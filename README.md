@@ -14,7 +14,6 @@ TODO:
 
  * test timer integration with the break interval bar, to see if any don't react dynamically to the break interval bar
 
- * Style the top bar - no gradients just replace the color of the bar with the accent
 
  * if time permits, fenangle the if statement which remembers the time at which you started the 
 
