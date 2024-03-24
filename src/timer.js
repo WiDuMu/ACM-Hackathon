@@ -51,9 +51,38 @@ const css = `
    background: var(--accent);
    border: none;
    appearance: none;
-   border-radius: 0.25em;
-   padding: 0.5em;
+   border-radius: 50%;
+   min-width: fit-content;
+   min-height: fit-content;
+   cursor: pointer;
+   padding: 0.25rem;
   }
+  button:hover {
+   background-color: var(--accent-hover);
+  }
+  button > .trash {
+   background-image: url('./static/trash-solid.svg');
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: 1.5em;
+   min-width: 2.5em;
+   min-height: 2.5em;
+}
+  button > .play {
+   background-image: url('./static/play-solid.svg');
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: 1.5em;
+   min-width: 2.5em;
+   min-height: 2.5em;
+}
+.buttons {
+   width: 100%;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-evenly;
+   align-items: center;
+}
 `;
 const html = `
 
@@ -69,14 +98,18 @@ const html = `
 
 <style>${css}</style>
 <div class="card">
-<button type="button">click to start / stop </button>
+
 <label for="activity-name">Name:</label>
 <input name="activity-name" type="text">
 <h1>00:00</h1>
 <span class="start-end-time">
 00:00
 </span>
-<button type="button" <i class="fa-solid fa-trash"></i> > remove timer </button>
+<div class="buttons">
+<button type="button" ><div class="play"></div></button>
+<button type="button"><div class="trash"></div></button>
+</div>
+
 `;
 
 export default class Timer extends HTMLElement {
@@ -118,14 +151,14 @@ export default class Timer extends HTMLElement {
       this.shadow.innerHTML = html;
       this.timeElement = this.shadow.querySelector(".card > h1");
       this.timeElement.textContent = Timer.formatTime(this.accumulatedTime);
-      this.card = this.shadow.querySelector(".card");
+      this.startButton = this.shadow.querySelector(".play").parentNode;
       this.nameInput = this.shadow.querySelector(`.card > input[name="activity-name"]`);
       this.startEndTimeSpan = this.shadow.querySelector('.start-end-time');
       this.nameInput.value = this.name;
-      this.card.addEventListener("click", (event => {
+      this.startButton.addEventListener("click", (event => {
          console.log(event);
-         console.log(event.target, this, event.target == this);
-         if (event.target == this.card || event.target == this) {
+         console.log(event.target, this.startButton, event.target == this.startButton);
+         if (event.target == this.startButton || event.target == this.startButton.childNodes[0]) {
             console.log("Starting timer");
             this.toggleTimer();
          } else {

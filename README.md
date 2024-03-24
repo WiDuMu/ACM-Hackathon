@@ -3,10 +3,17 @@
 Contributors: Duncan Murphy and Jackson Dempsey
 
 TODO:
- * complete / check if it works for the timer integration with break interval, so all timers react dynamically to the break interval
- * Style the top bar
- * Memorable/Memeable quotes to taunt them with + get random quote implementation
-    * test to see if quotes work 
- * Make the accept button work
+
+* Make the accept button work
+
+* make the trash can icon work able to delete timers
+
+ *test timer integration with the break interval bar, to see if any don't react dynamically to the break interval bar
+
+ * Style the top bar - no gradients just replace the color of the bar with the accent
+
+
+ 
  * bug testing
+
  * submission
