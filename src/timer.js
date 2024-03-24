@@ -157,6 +157,7 @@ export default class Timer extends HTMLElement {
       this.startButton = this.shadow.querySelector(".play");
       this.nameInput = this.shadow.querySelector(`.card > input[name="activity-name"]`);
       this.startEndTimeSpan = this.shadow.querySelector('.start-end-time');
+      this.trashButton = this.shadow.querySelector('.trash');
       this.nameInput.value = this.name;
       this.startButton.addEventListener("click", (event => {
          console.log(event);
@@ -170,7 +171,10 @@ export default class Timer extends HTMLElement {
       }).bind(this));
       this.nameInput.addEventListener("input", () => {
          this.name = this.nameInput.value;
-      })
+      });
+      this.trashButton.addEventListener('click', (() => {
+         this.parentElement.removeChild(this);
+      }).bind(this));
    }
 
    updateTime() {
