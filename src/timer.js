@@ -14,6 +14,10 @@ const css = `
    justify-items: center;
   }
   
+  .card > h1 {
+   font-family: "Kode Mono", "Roboto", sans-serif;
+  }
+  
   .card:hover {
      cursor: pointer;
      background-blend-mode: darken;
@@ -43,13 +47,12 @@ const css = `
   .card > * {
       margin-bottom: .5em;
   }
-  .timer-bar > progress {
-      
-      /* */box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset; /* */
-      /**/ background: linear-gradient(#e66465, #9198e5); /**/ 
-      background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
-            linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
-            linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+  button {
+   background: var(--accent);
+   border: none;
+   appearance: none;
+   border-radius: 0.25em;
+   padding: 0.5em;
   }
 `;
 const html = `
@@ -66,14 +69,14 @@ const html = `
 
 <style>${css}</style>
 <div class="card">
+<button type="button">click to start / stop </button>
 <label for="activity-name">Name:</label>
 <input name="activity-name" type="text">
 <h1>00:00</h1>
-<div class="timer-bar">
-   <label for="time">2:20</label>
-   <progress name="time" class="timer-progress" value="50" max="100"></progress>
-   <label for="time">2:20</label>
-</div>
+<span class="start-end-time">
+00:00
+</span>
+<button type="button" <i class="fa-solid fa-trash"></i> > remove timer </button>
 `;
 
 export default class Timer extends HTMLElement {
@@ -85,32 +88,53 @@ export default class Timer extends HTMLElement {
    accumulatedTime;
    duration;
    shadow;
-   progress;
-   button;
-   internal_time;
    timeElement;
    interval;
-   timeInput;
+   name;
+   nameInput;
+   startEndTimeSpan;
 
-   constructor() {
+   constructor(name, accumulatedTime) {
       super();
+      if (name != null && name != undefined) {
+         this.name = name;
+      } else {
+         this.name = "";
+      }
+      if ( typeof accumulatedTime == "number" && !isNaN(accumulatedTime) && accumulatedTime >= 0) {
+         this.accumulatedTime = accumulatedTime;
+      } else {
+         this.accumulatedTime = 0;
+      }
       this.shadow = this.attachShadow({ mode: "open" });
       this.startTime = Date.now();
-      this.accumulatedTime = 0;
+   }
+
+   static fromObject(o) {
+      return new Timer( o.name, o.accumulatedTime);
    }
 
    connectedCallback() {
       this.shadow.innerHTML = html;
-      this.button = this.shadow.querySelector(".card > button");
       this.timeElement = this.shadow.querySelector(".card > h1");
-      this.progress = this.shadow.querySelector(".card > progress");
-      this.timeInput = this.shadow.querySelector("time-input");
-      this.card = this.shadow.querySelector(".card")
+      this.timeElement.textContent = Timer.formatTime(this.accumulatedTime);
+      this.card = this.shadow.querySelector(".card");
+      this.nameInput = this.shadow.querySelector(`.card > input[name="activity-name"]`);
+      this.startEndTimeSpan = this.shadow.querySelector('.start-end-time');
+      this.nameInput.value = this.name;
       this.card.addEventListener("click", (event => {
-         if (event.originalTarget == this.card) {
+         console.log(event);
+         console.log(event.target, this, event.target == this);
+         if (event.target == this.card || event.target == this) {
+            console.log("Starting timer");
             this.toggleTimer();
+         } else {
+            console.log("hmmm", this);
          }
       }).bind(this));
+      this.nameInput.addEventListener("input", () => {
+         this.name = this.nameInput.value;
+      })
    }
 
    updateTime() {
@@ -122,6 +146,8 @@ export default class Timer extends HTMLElement {
       if (this.active) {
          Timer.running -= 1;
          this.active = false;
+         this.endTime = now;
+         this.startEndTimeSpan.textContent = Timer.localeFormatTime(this.endTime);
          this.accumulatedTime += now - this.startTime;
          clearInterval(this.interval);
       } else {
@@ -130,6 +156,8 @@ export default class Timer extends HTMLElement {
          }
          Timer.running += 1;
          this.startTime = now;
+         this.endTime = null;
+         this.startEndTimeSpan.textContent = Timer.localeFormatTime(this.startTime);
          this.active = true;
          this.interval = setInterval(this.updateTime.bind(this), 500);
       }
@@ -140,9 +168,31 @@ export default class Timer extends HTMLElement {
       if (this.active) {
          Timer.running -= 1;
          this.active = false;
+         this.endTime = now;
+         this.startEndTimeSpan.textContent = Timer.localeFormatTime(this.endTime);
          this.accumulatedTime += now - this.startTime;
          clearInterval(this.interval);
       }
+   }
+
+   static localeFormatTime(time) {
+      const dateTime = new Date(time);
+      return dateTime.toLocaleTimeString('en-US');
+   }
+
+   /** This returns an obect that can be used in a JSON interchange*/
+   toObject() {
+      let accumulatedTimePromo = this.accumulatedTime;
+      if (this.endTime === null) {
+         accumulatedTimePromo = this.accumulatedTime + Date.now() - this.startTime;
+      }
+      
+      return {
+         name: this.name,
+         accumulatedTime: accumulatedTimePromo,
+         startTime: this.startTime,
+         endTime: this.endTime,
+      };
    }
 
    static formatTime(time) {
@@ -161,5 +211,10 @@ export default class Timer extends HTMLElement {
       return formatted;
    }
 
+   
 }
+
+
+
+
 customElements.define("custom-timer", Timer);

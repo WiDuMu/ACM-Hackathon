@@ -2,7 +2,6 @@
 
 import Timer from "./timer.js";
 
-const activities = [];
 let breakInterval = 1800000;
 let unit = 60;
 
@@ -10,10 +9,23 @@ const intervalInput = document.querySelector(`input[name="break-interval"]`);
 intervalInput.value = 30;
 const unitInput = document.querySelector(`input[value="minutes"]`);
 const unitInput2 = document.querySelector(`input[value="hours"]`);
+const progressBar = document.getElementById("progress");
 unitInput.checked = true;
 changeUnit();
 const addButton = document.getElementById("plus");
 const grid = document.body.querySelector("main");
+const checkGrassInterval = setInterval(checkTime, 100);
+// array storing the memeable quotes
+const memeableTouchGrassQuotes = [
+   
+   "take a break. go touch some grass.",
+   "the grass is greener on the other side, not this side. go touch some grass.",
+   "grass doesn't hurt to touch, you know. go touch some grass.",
+   "i can assure you that grass will feel better than that keyboard you've been typing away at. go touch some grass.",
+   "toca un poquito de césped, por favor. (touch grass please.)",
+   "literaly the only thing stopping you from touching grass is (mabye?) a lawnmower. go touch some already.",
+   
+];
 
 addButton.addEventListener("click", () => {
    grid.appendChild(new Timer());
@@ -53,10 +65,11 @@ unitInput2.addEventListener("input", changeUnit);
 // how long has the person been working
 // throw a break trigger if is 
 function checkTime() {
-   const timespent2 = Date.now() - Timer.firstStartTime;
-   console.log(timespent2, breakInterval, Date.now());
+   const timespent = Date.now() - Timer.firstStartTime;
+   // console.log(timespent, breakInterval, Date.now());
    if (Timer.running > 0) {
-      const timespent = Date.now() - Timer.firstStartTime;
+      
+      progressBar.value = timespent / breakInterval * 100;
       if (timespent > breakInterval) {
          
          touchGrass();
@@ -68,15 +81,23 @@ function killAllTimers() {
    const timers = document.querySelectorAll("custom-timer");
    timers.forEach(timer => {
       timer.turnOff();
+      console.log(JSON.stringify(timer));
    })
 }
 
 function touchGrass() {
    const grassDialog = document.querySelector("#go-touch-grass");
+   const quote = document.querySelector("#go-touch-grass > div > h1 > q");
+   clearInterval(checkGrassInterval);
+   quote.textContent = getRandomPhrase();
    grassDialog.showModal();
    const acceptGrassButton = grassDialog.querySelector("#accept-break");
    acceptGrassButton.addEventListener("click", () => {killAllTimers();});
 }
 
+// return a random string from the array with random quotes
+function getRandomPhrase() { return memeableTouchGrassQuotes[ Math.floor(Math.random() * memeableTouchGrassQuotes.length) ]; };
+
+
 // Start checking the time running
-setInterval(checkTime, 500);
+
