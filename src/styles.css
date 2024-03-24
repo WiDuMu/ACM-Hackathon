@@ -9,7 +9,7 @@ html, body {
  --accent: #b00b5b;
  background-image: url("./static/cool_tile_type_thing.webp");
  background-size: .75rem;
- animation: shifting 500s linear infinite;
+ /* animation: shifting 500s linear infinite; */
  font-family: "Roboto", sans-serif;
  /* font-weight: 300; */
 }

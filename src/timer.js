@@ -16,6 +16,7 @@ const css = `
   
   .card:hover {
      cursor: pointer;
+     background-blend-mode: darken;
   }
 
   .card > input[name="activity-name"] {
@@ -56,7 +57,7 @@ const html = `
 <div class="card">
 <label for="activity-name">Name:</label>
 <input name="activity-name" type="text">
-<h1>loading...</h1>
+<h1>00:00</h1>
 <div class="timer-bar">
    <label for="time">2:20</label>
    <progress name="time" class="timer-progress" value="50" max="100"></progress>
@@ -90,7 +91,6 @@ export default class Timer extends HTMLElement {
       this.timeElement = this.shadow.querySelector(".card > h1");
       this.progress = this.shadow.querySelector(".card > progress");
       this.timeInput = this.shadow.querySelector("time-input");
-      //this.interval = setInterval((() => { this.time = new Date() }).bind(this), 1000);
       this.shadow.querySelector(".card").addEventListener("click", this.toggleTimer.bind(this));
    }
 
@@ -99,7 +99,6 @@ export default class Timer extends HTMLElement {
    }
 
    toggleTimer() {
-      console.log("toggling timer, current"+this.active);
       if (this.active) {
          this.active = false;
          this.endTime = Date.now();
@@ -107,12 +106,12 @@ export default class Timer extends HTMLElement {
       } else {
          this.startTime = Date.now();
          this.active = true;
-         this.interval = setInterval(this.updateTime.bind(this), 1000);
+         this.interval = setInterval(this.updateTime.bind(this), 500);
       }
    }
 
    formatTime(time) {
-      time = Math.round(time / 1000);
+      time = time / 1000;
       const seconds = Math.round(time % 60);
       const minutes = Math.round((time / 60) % 60);
       const hours = Math.round((time / 3600));
