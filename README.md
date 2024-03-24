@@ -5,7 +5,8 @@ Contributors: Duncan Murphy and Jackson Dempsey
 TODO:
 
 * Make the accept button work
-   * doubt we do have the time but if we can get the break timer to work that'd be cool but not necceasary
+   * ~~doubt we do have the time but if we can get the break timer to work that'd be cool but not necceasary~~
+   * accept button working, but not styled correctly
 
 * make the trash can icon work able to delete timers
 
