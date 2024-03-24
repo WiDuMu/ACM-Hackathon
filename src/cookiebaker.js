@@ -11,15 +11,22 @@ function getCookie() {
   timers.forEach(timer => {
     Objects.push(timer.toObject());
   });
-  return JSON.stringify(Objects);
+  return JSON.stringify({breakInterval: document.querySelector(`input[name="break-interval"]`).value, breakDuration: document.querySelector(`input[name="break-duration"]`), timers: Objects});
 }
 
 function fromCookie(cookie) {
   const main = document.querySelector("main");
   const data = JSON.parse(cookie);
-  data.forEach(time => {
+  data.timers.forEach(time => {
     main.appendChild(Timer.fromObject(time));
   });
+  const breakInput = document.querySelector(`input[name="break-interval"]`);
+  breakInput.value = data.breakInterval;
+  let e = new MouseEvent("input", {
+    target: breakInput,
+  } );
+  breakInput.dispatchEvent(e);
+  const breakDurationInput = document.querySelector(`input[name="break-duration"]`)
   console.log(data);
 }
 
@@ -48,7 +55,11 @@ if (document.cookie === "") {
     console.log("this is your first time visiting the website, congrats.")
 
 } else {
-  fromCookie(document.cookie);
+  console.log(document.cookie)
+  let lastCookie = document.cookie.split(';');
+  lastCookie = lastCookie[lastCookie.length - 1].trim();
+  fromCookie(lastCookie);
   enableCookies();
 }
 
+[{"name":"Hello","accumulatedTime":1321163,"startTime":1711265221925}]; [{"name":"Hello","accumulatedTime":1324748,"startTime":1711307206621,"endTime":1711307210206}]

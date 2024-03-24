@@ -11,7 +11,9 @@ html, body {
  --background: #ffffff;
  --accent-hover: #235d23ff;
  --accent: #286d28ff;
- --accent-compliment: #0bb060;
+ --accent-compliment: #d792d7;
+ --warning: #d12639;
+ --background-shading: rgba(127,127,127,.5);
  background-image: url("./static/grass_tile.webp");
  background-size: 4rem;
  animation: shifting 900s linear infinite;
@@ -25,7 +27,6 @@ html, body {
       --foreground: #deadbeef;
       --text: #FFFFFF;
       --background: #000000;
-      --accent: #286d28ff;
    }
 }
 @keyframes shifting {
@@ -103,33 +104,51 @@ header {
    font-size: 1em;
 }
 
-#unit-container {
-   display: flex;
-   gap: 1em;
-   flex-direction: column;   
-}
-
-#unit-container > span > input {
-   
-}
-
 header > nav {
    width: 100%;
    min-height: 2rem;
    padding: 0.25rem;
+   padding-left: 2rem;
+   padding-right: 2rem;
    display: flex;
    align-items: center;
-   justify-content: space-around;
+   justify-content: space-between;
 }
 
-header > nav > input[type="number"] {
+header > nav > span > input[type="number"] {
    appearance: none;
    border: none;
    padding: 0.25em;
    border-radius: 0.25em;
-   background: rgba(127,127,127,.25);
+   background: var(--background-shading);
    color: var(--text);
    font-size: 1em;
+   width: 5em;
+}
+
+header > nav > span > input[type="number"]:focus {
+   outline: 0.2em var(--accent) solid;
+}
+
+header > nav > span {
+   display: flex;
+   flex-direction: row;
+   gap: 0.5em;
+   align-items: center;
+   justify-self: flex-end;
+   align-self: center;
+}
+
+header > nav > span > select {
+   appearance: none;
+   border: none;
+   padding: 0.25em;
+   border-radius: 0.25em;
+   width: 5em;
+   text-align: center;
+   font-size: inherit;
+   background-color: var(--background-shading);
+   color: var(--text);
 }
 
 header > progress[value] {
@@ -155,7 +174,7 @@ header > ::-webkit-progress-bar {
    background-color: var(--accent);
 }
 
-#go-touch-grass[open] {
+.modal[open] {
    position: absolute;
    top: 0px;
    left: 0px;
@@ -170,7 +189,7 @@ header > ::-webkit-progress-bar {
    align-items: center;
 }
 
-#go-touch-grass > div {
+.modal > div {
    background: var(--background);
    color: var(--text);
    min-height: 50%;
@@ -182,14 +201,14 @@ header > ::-webkit-progress-bar {
    align-items: center;
 }
 
-#go-touch-grass > div > button {
+.modal > div > button {
    font-size: 1rem;
    background-color: var(--accent);
    padding: 0.5em;
    border-radius: .25em;
 }
 
-#go-touch-grass > div > button:hover {
+.modal > div > button:hover {
    cursor: pointer;
    background-color: var(--accent-hover);
 }
@@ -198,12 +217,16 @@ header > ::-webkit-progress-bar {
    content: "“";
 }
 
-#go-touch-grass > div > h1 {
+.modal > div > h1 {
    text-align: center;
 }
 
-#go-touch-grass > div > h1 > q {
+.modal > div > h1 > q {
    font-family: "Noto Serif Display";
+}
+
+.modal > div > h1 > q::after, .modal > div > h1 > q::before {
+   content: "";
 }
 
 #go-touch-grass > div > q::after {
@@ -212,9 +235,16 @@ header > ::-webkit-progress-bar {
 
 .final-time {
    font-family: "Kode Mono", "Roboto", sans-serif;
+   color: var(--warning);
+   font-size: 3.5rem;
+}
+
+.break-time {
+   font-family: "Kode Mono", "Roboto", sans-serif;
    color: var(--accent);
    font-size: 3.5rem;
 }
+
 .final-time::before {
    content: '-';
 }

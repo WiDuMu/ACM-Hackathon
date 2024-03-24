@@ -26,7 +26,7 @@ const css = `
   .card > input[name="activity-name"] {
      color: var(--text);
      appearance: none;
-     background: rgba(127,127,127,.25);
+     background: var(--background-shading);
      border-radius: .25em;
      padding: .5em;
      border: 1px transparent solid;
@@ -85,16 +85,6 @@ const css = `
 }
 `;
 const html = `
-
-<!-- implement a pause/play button which defaults to a square for a stop icon and: -->
-
-<!-- when you hover over it fades in a message: "pause timer?" and fades out when you hover off it -->
-
-<!-- then if you click it, the timer pauses, and the icon switches to a triangle for play  -->
-
-<!-- then when you hover on that button it fades in a message: "play timer?" and fades out when you hover off it -->
-
-<!-- then if you click it, the timer plays again and so on so forth -->
 
 <style>${css}</style>
 <div class="card">
@@ -239,10 +229,10 @@ export default class Timer extends HTMLElement {
 
    static formatTime(time) {
       time = time / 1000;
-      const seconds = Math.floor(time % 60);
-      const minutes = Math.floor((time / 60) % 60);
-      const hours = Math.floor((time / 3600));
-      const days = Math.floor((time / 86400));
+      const seconds = Math.abs(Math.floor(time % 60));
+      const minutes = Math.abs(Math.floor((time / 60) % 60));
+      const hours = Math.abs(Math.floor((time / 3600)));
+      const days = Math.abs(Math.floor((time / 86400)));
       let formatted = `${minutes.toString().padStart(2,"0")}:${seconds.toString().padStart(2,"0")}`;
       if (hours > 0) {
          formatted = hours.toString().padStart(2, "0") + ":" + formatted;

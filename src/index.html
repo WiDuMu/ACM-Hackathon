@@ -18,28 +18,47 @@
          <button id="reject" type="button">Reject</button>
       </div>
    </dialog>
-   <dialog id="go-touch-grass">
+   
+   <!-- change to: go-touch-grass-notifcation-box -->
+   <dialog class="modal" id="go-touch-grass">
       <div>
          <h1>
             <q>take a break. go touch some grass.</q>
          </h1>
-         <h1 class="final-time">00:00</h1>
+         <h1 id="final-time" class="final-time">00:00</h1>
          <button id="accept-break" type="button">Take a break</button>
          
       </div>  
+   </dialog>
+
+   <!-- change to: touching-grass-timer-box -->
+   <dialog class="modal" id="touching-grass">
+      <div>
+         <h1>
+            <q>You still have:</q>
+         </h1>
+         <h1 id="break-time" class="break-time">00:00</h1>
+         <h1>
+            <q>to touch grass</q>
+         </h1>
+         <button id="done-break" type="button">I'm done touching grass</button>
+         
+      </div> 
+       
    </dialog>
    <header>
       
       <nav>
             <img src="./static/touch_grass_logo_SOLO_SHOULD_BE_OPTIMISED.svg" alt="Touch Grass Logo"> 
             <button type="button" id="plus" class="plus">+</button>
-            <label for="break-interval">Break interval:</label>
+            <span><label for="break-interval">Break interval:</label>
             <input name="break-interval" value="30" min="0" type="number">
-            <div id="unit-container">
-            <span><input name="units" type="radio" value="minutes" checked><label for="minutes">Minutes</label></span>
-            <span><input name="units" type="radio" value="hours"><label for="hours">Hours</label></span>
-            </div>
+            
             <label for="break-duration">Break duration:</label><input name="break-duration" type="number" value="20" min="0">
+            <select name="units" id="units">
+               <option value="minutes">Minutes</option>
+               <option value="hours">Hours</option></span>
+            </select>
       </nav>
       <progress id="progress" value="0" max="100"></progress>
    </header>
