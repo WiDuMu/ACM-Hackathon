@@ -1,17 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 html, body {
  margin: 0px;
+ min-width: 100vw;
+ min-height: 100vh;
  --foreground: #deadbeef;
- --text: #242092;
- --background: #454545;
+ --text: #000000;
+ --background: #ffffff;
+ --accent-hover: #90003b;
  --accent: #b00b5b;
- background-image: url("./static/cool_tile_type_thing.webp");
- background-size: .75rem;
+ background-image: url("./static/grass_tile.webp");
+ background-size: 4rem;
  /* animation: shifting 500s linear infinite; */
  font-family: "Roboto", sans-serif;
- /* font-weight: 300; */
+ overflow: hidden;
+ color: var(--text);
+}
+
+@media( prefers-color-scheme: dark ) {
+   body {
+      --foreground: #deadbeef;
+      --text: #FFFFFF;
+      --background: #000000;
+      --accent: #b00b5b;
+   }
 }
 @keyframes shifting {
    0% {
@@ -31,25 +44,40 @@ button {
    border: none;
    outline: none;
    box-shadow: none;
+   color: var(--text);
 }
-nav {
+/* nav {
    background: grey;
    display: flex;
    align-items: space-between;
    justify-content: space-between;
    padding-left: 1rem;
    padding-right: 1rem;
-}
+} */
 
 main {
    display: grid;
    justify-items: center;
 }
 
-dialog {
+#cookie-pop-up {
    margin: 1rem;
    border-radius: 1rem;
    border: none;
+}
+
+.plus {
+   min-width: 3rem;
+   min-height: 3rem;
+   background-color: var(--accent);
+   border-radius: 50%;
+   font-size: 1.5rem;
+   /* position: absolute; */
+   /* bottom: 1rem;
+   right: 1rem; */
+   /* top: calc(100vh - 1.5rem); */
+   margin: .25rem;
+   /* left: calc(100vw - 1.5rem); */
 }
 
 #cookie-nav {
@@ -59,3 +87,63 @@ dialog {
    gap: 1em;
 }
 
+header > nav {
+   width: 100%;
+   min-height: 2rem;
+   background-color: var(--background);
+   padding: 0.25rem;
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+}
+
+#go-touch-grass[open] {
+   position: absolute;
+   top: 0px;
+   left: 0px;
+   background-color: transparent;
+   border: none;
+   min-height: 100vh;
+   min-width: min(100vw, 100%);
+   margin: 0px;
+   padding: 0px;
+   display: grid;
+   justify-items: center;
+   align-items: center;
+}
+
+#go-touch-grass > div {
+   background: var(--background);
+   color: var(--text);
+   height: 50%;
+   width: 50%;
+   padding: 1rem;
+   border-radius: 0.25em;
+   display: grid;
+   justify-items: center;
+   align-items: center;
+}
+
+#go-touch-grass > div > button {
+   font-size: 1rem;
+   background-color: var(--accent);
+   padding: 0.5em;
+   border-radius: .25em;
+}
+
+#go-touch-grass > div > button:hover {
+   cursor: pointer;
+   background-color: var(--accent-hover);
+}
+
+#go-touch-grass > div > q::before {
+   content: "“";
+}
+
+#go-touch-grass > div > h1 > q {
+   font-family: "Noto Serif Display";
+}
+
+#go-touch-grass > div > q::after {
+   content: "”";
+}

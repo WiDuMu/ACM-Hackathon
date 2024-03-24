@@ -3,14 +3,14 @@ const css = `
    min-height: 3rem;
    min-width: 3rem;
    border: 1px rgba(66, 76, 85,. 85) solid;
-   background: white;
+   background: var(--background);
    border-radius: 1em;
    margin: 1em;
    padding: 1em;
    display: grid;
    grid-template-columns: 1fr;
    align-items: center;
-   color: black;
+   color: var(--text);
    justify-items: center;
   }
   
@@ -20,6 +20,7 @@ const css = `
   }
 
   .card > input[name="activity-name"] {
+     color: var(--text);
      appearance: none;
      background: rgba(127,127,127,.25);
      border-radius: .25em;
@@ -53,6 +54,16 @@ const css = `
 `;
 const html = `
 
+<!-- implement a pause/play button which defaults to a square for a stop icon and: -->
+
+<!-- when you hover over it fades in a message: "pause timer?" and fades out when you hover off it -->
+
+<!-- then if you click it, the timer pauses, and the icon switches to a triangle for play  -->
+
+<!-- then when you hover on that button it fades in a message: "play timer?" and fades out when you hover off it -->
+
+<!-- then if you click it, the timer plays again and so on so forth -->
+
 <style>${css}</style>
 <div class="card">
 <label for="activity-name">Name:</label>
@@ -66,6 +77,8 @@ const html = `
 `;
 
 export default class Timer extends HTMLElement {
+   static running = 0;
+   static firstStartTime = 0;
    startTime;
    endTime;
    active;
@@ -83,6 +96,7 @@ export default class Timer extends HTMLElement {
       super();
       this.shadow = this.attachShadow({ mode: "open" });
       this.startTime = Date.now();
+      this.accumulatedTime = 0;
    }
 
    connectedCallback() {
@@ -91,26 +105,48 @@ export default class Timer extends HTMLElement {
       this.timeElement = this.shadow.querySelector(".card > h1");
       this.progress = this.shadow.querySelector(".card > progress");
       this.timeInput = this.shadow.querySelector("time-input");
-      this.shadow.querySelector(".card").addEventListener("click", this.toggleTimer.bind(this));
+      this.card = this.shadow.querySelector(".card")
+      this.card.addEventListener("click", (event => {
+         if (event.originalTarget == this.card) {
+            this.toggleTimer();
+         }
+      }).bind(this));
    }
 
    updateTime() {
-      this.timeElement.textContent = this.formatTime(Date.now() - this.startTime);
+      this.timeElement.textContent = Timer.formatTime(this.accumulatedTime + Date.now() - this.startTime);
    }
 
    toggleTimer() {
+      const now = Date.now();
       if (this.active) {
+         Timer.running -= 1;
          this.active = false;
-         this.endTime = Date.now();
+         // this.endTime = Date.now();
+         this.accumulatedTime += now - this.startTime;
          clearInterval(this.interval);
       } else {
-         this.startTime = Date.now();
+         if (Timer.running === 0) {
+            Timer.firstStartTime = now;
+         }
+         Timer.running += 1;
+         this.startTime = now;
          this.active = true;
          this.interval = setInterval(this.updateTime.bind(this), 500);
       }
    }
 
-   formatTime(time) {
+   turnOff() {
+      const now = Date.now();
+      if (this.active) {
+         Timer.running -= 1;
+         this.active = false;
+         this.accumulatedTime += now - this.startTime;
+         clearInterval(this.interval);
+      }
+   }
+
+   static formatTime(time) {
       time = time / 1000;
       const seconds = Math.round(time % 60);
       const minutes = Math.round((time / 60) % 60);

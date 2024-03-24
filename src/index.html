@@ -18,9 +18,29 @@
          <button id="reject" type="button">Reject</button>
       </div>
    </dialog>
+   <dialog id="go-touch-grass" open>
+      <div>
+         <h1>
+            <q>take a break. go touch some grass.</q>
+         </h1>
+         
+         <button id="accept" type="button">Accept</button>
+         
+      </div>  
+   </dialog>
+   <header>
+      <nav>
+            <button type="button" id="plus" class="plus">+</button>
+            <label for="break-interval">Break interval:</label>
+            <input name="break-interval" value="30" type="number">
+            <input name="units" type="radio" value="minutes" checked><label for="minutes">Minutes</label> 
+            <input name="units" type="radio" value="hours"><label for="hours">Hours</label>
+      </nav>
+   </header>
    <main>
-      <custom-timer></custom-timer>
+      
    </main>
+   
  </body>
 
 </html>

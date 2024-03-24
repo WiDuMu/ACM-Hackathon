@@ -15,7 +15,6 @@ function enableCookies() {
 
 // check if we baked a cookie beforehand to 
 if (document.cookie === "") {
-    // hey triple equals that was that domain hack thing from the other day: 
 
     // https://stackoverflow.com/questions/154059/how-do-i-check-for-an-empty-undefined-null-string-in-javascript
 
