@@ -11,7 +11,7 @@ function getCookie() {
   timers.forEach(timer => {
     Objects.push(timer.toObject());
   });
-  return JSON.stringify({breakInterval: document.querySelector(`input[name="break-interval"]`).value, breakDuration: document.querySelector(`input[name="break-duration"]`), timers: Objects});
+  return JSON.stringify({ breakInterval: parseInt(document.querySelector(`input[name="break-interval"]`).value), breakDuration: parseInt(document.querySelector(`input[name="break-duration"]`).value), timers: Objects });
 }
 
 function fromCookie(cookie) {
@@ -20,13 +20,24 @@ function fromCookie(cookie) {
   data.timers.forEach(time => {
     main.appendChild(Timer.fromObject(time));
   });
-  const breakInput = document.querySelector(`input[name="break-interval"]`);
-  breakInput.value = data.breakInterval;
-  let e = new MouseEvent("input", {
-    target: breakInput,
-  } );
-  breakInput.dispatchEvent(e);
-  const breakDurationInput = document.querySelector(`input[name="break-duration"]`)
+  if (typeof data.breakInterval == "number" && !isNaN(data.breakInterval) && isFinite(data.breakInterval)) {
+    const breakInput = document.querySelector(`input[name="break-interval"]`);
+    breakInput.value = data.breakInterval;
+    let e = new MouseEvent("input", {
+      target: breakInput,
+    });
+    breakInput.dispatchEvent(e);
+  }
+  
+  if (typeof data.breakDuration == "number" && !isNaN(data.breakDuration) && isFinite(data.breakDuration)) {
+    const breakDurationInput = document.querySelector(`input[name="break-duration"]`);
+    breakDurationInput.value = data.breakDuration;
+    let eb = new MouseEvent("input", {
+      target: breakDurationInput,
+    });
+    breakDurationInput.dispatchEvent(eb);
+  }
+
   console.log(data);
 }
 
@@ -34,32 +45,33 @@ function enableCookies() {
   clearInterval(cookieInterval);
   cookieInterval = setInterval(() => {
     document.cookie = `${getCookie()}; SameSite=strict; max-age=${secondsToLive};`
-  }, 10000);
+  }, 1000);
+  console.log(cookieInterval);
 }
 
 // check if we baked a cookie beforehand to 
 if (document.cookie === "") {
 
-    // https://stackoverflow.com/questions/154059/how-do-i-check-for-an-empty-undefined-null-string-in-javascript
+  // https://stackoverflow.com/questions/154059/how-do-i-check-for-an-empty-undefined-null-string-in-javascript
 
-    const dialog = document.querySelector("#cookie-pop-up");
-    dialog.showModal()
-    const accept = document.getElementById("accept");
-    const reject = document.getElementById("reject");
-    accept.addEventListener("click", (() => { enableCookies(); dialog.close(); }));
-    reject.addEventListener("click", (() => { dialog.close(); }));
+  const dialog = document.querySelector("#cookie-pop-up");
+  dialog.showModal()
+  const accept = document.getElementById("accept");
+  const reject = document.getElementById("reject");
+  accept.addEventListener("click", (() => { enableCookies(); dialog.close(); }));
+  reject.addEventListener("click", (() => { dialog.close(); }));
 
 
 
-    // we can have it actually do something later, let's just get that to work first
-    console.log("this is your first time visiting the website, congrats.")
+  // we can have it actually do something later, let's just get that to work first
+  console.log("this is your first time visiting the website, congrats.")
 
 } else {
   console.log(document.cookie)
   let lastCookie = document.cookie.split(';');
   lastCookie = lastCookie[lastCookie.length - 1].trim();
-  fromCookie(lastCookie);
-  enableCookies();
+  setTimeout(() => { fromCookie(lastCookie); enableCookies(); }, 10);
+
 }
 
-[{"name":"Hello","accumulatedTime":1321163,"startTime":1711265221925}]; [{"name":"Hello","accumulatedTime":1324748,"startTime":1711307206621,"endTime":1711307210206}]
+[{ "name": "Hello", "accumulatedTime": 1321163, "startTime": 1711265221925 }];[{ "name": "Hello", "accumulatedTime": 1324748, "startTime": 1711307206621, "endTime": 1711307210206 }]
