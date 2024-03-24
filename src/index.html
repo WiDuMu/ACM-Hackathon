@@ -10,11 +10,16 @@
    <script type="module" src="./cookiebaker.js"></script>
    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/14.0.0/material-components-web.min.js"></script>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/14.0.0/material-components-web.css"> -->
-   <script type="module" src="./dialog.js"></script>
 </head>
 
 <body>
-   <!-- <nav><p>timer</p> <p> menu </p></nav> -->
+   <dialog id="cookie-pop-up">
+      <p>We use cookies to store your session. This site does not send your data to any external server. If you don't feel comfortable accepting cookies, you may reject them, but the site will function in a degraded state.</p>
+      <div id="cookie-nav">
+         <button id="accept" type="button">Accept</button>
+         <button id="reject" type="button">Reject</button>
+      </div>
+   </dialog>
    <main>
       <custom-timer></custom-timer>
    </main>

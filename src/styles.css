@@ -46,3 +46,16 @@ main {
    justify-items: center;
 }
 
+dialog {
+   margin: 1rem;
+   border-radius: 1rem;
+   border: none;
+}
+
+#cookie-nav {
+   display: flex;
+   flex-direction: row;
+   justify-content: right;
+   gap: 1em;
+}
+

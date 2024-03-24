@@ -19,10 +19,11 @@ if (document.cookie === "") {
 
     // https://stackoverflow.com/questions/154059/how-do-i-check-for-an-empty-undefined-null-string-in-javascript
 
-    let dialog = new CookieDialog();
-    document.body.prepend(dialog);
-    let accept = dialog.shadow.querySelector("#accept");
-    accept.addEventListener('click', enableCookies);
+    const dialog = document.querySelector("dialog").open();
+    const accept = document.getElementById("accept");
+    const reject = document.getElementById("reject");
+    accept.addEventListener("click", (() => { enableCookies(); dialog.close(); }));
+    reject.addEventListener("click", (() => { dialog.close(); }));
 
 
 
