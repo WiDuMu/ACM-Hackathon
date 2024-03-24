@@ -1,18 +1,11 @@
-## Inspiration
+# Inspiration
+# What it does
+# How we built it
 
+We built the site with stock standard JS, since it would let us implement the most features
+# Challenges we ran into
+# Accomplishments that we're proud of
+# What we learned
+# What's next for Touch Grass?
 
-## What it does
-
-Touch Grass keeps track of how long you've been working on a project, or studying, or anything else that has sucked you in and reminds you to go take a break and touch grass, if that's your idea of a break.
-
-## How we built it
-
-This website is built using plain JavaScript, HTML, and CSS using the WebComponents API.
-
-## Challenges we ran into
-
-## Accomplishments that we're proud of
-
-## What we learned
-
-## What's next for Untitled
+Probably touching some IRL grass. Very excited for this one.
