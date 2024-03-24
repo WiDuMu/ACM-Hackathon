@@ -156,6 +156,8 @@ export default class Timer extends HTMLElement {
       this.timeElement.textContent = Timer.formatTime(this.accumulatedTime);
       this.startButton = this.shadow.querySelector(".play");
       this.nameInput = this.shadow.querySelector(`.card > input[name="activity-name"]`);
+      // trying to add some text that says "timer started at to the left of the thing that stores the time"
+      // this.startEndTimeSpan = "Timer Started at:" + this.shadow.querySelector('.start-end-time');
       this.startEndTimeSpan = this.shadow.querySelector('.start-end-time');
       this.nameInput.value = this.name;
       this.startButton.addEventListener("click", (event => {
