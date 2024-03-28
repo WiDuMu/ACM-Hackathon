@@ -1,3 +1,5 @@
+/* Not actually used in the final version due to performance concerns */
+
 const css = `
    dialog {
       margin: 1rem;

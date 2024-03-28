@@ -242,12 +242,13 @@ header > progress[value] {
    font-size: 3.5rem;
 }
 
+.final-time::before {
+   content: '-';
+}
+
 .break-time {
    font-family: "Kode Mono", "Roboto", sans-serif;
    color: var(--accent);
    font-size: 3.5rem;
 }
 
-.final-time::before {
-   content: '-';
-}
