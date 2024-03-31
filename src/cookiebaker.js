@@ -70,8 +70,7 @@ if (document.cookie === "") {
   console.log(document.cookie)
   let lastCookie = document.cookie.split(';');
   lastCookie = lastCookie[lastCookie.length - 1].trim();
+  // Dirty hack used to fix a bug late in production.
   setTimeout(() => { fromCookie(lastCookie); enableCookies(); }, 10);
 
 }
-
-[{ "name": "Hello", "accumulatedTime": 1321163, "startTime": 1711265221925 }];[{ "name": "Hello", "accumulatedTime": 1324748, "startTime": 1711307206621, "endTime": 1711307210206 }]
